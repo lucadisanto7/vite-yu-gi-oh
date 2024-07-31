@@ -5,11 +5,12 @@ export default {
   
 }
 </script>
-<template lang="]">
+<template>
   <div>
-    
+    <AppHeader />
+    <AppMain />
   </div>
 </template>
-<style lang="">
+<style>
   
 </style>
