@@ -1,8 +1,36 @@
 <template>
     <div>
       <main class="background-orange">
-        <div class="card-container" id="card-container">
-          
+        <div class="container">
+          <div class="dropdown my-3">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Select Card Type
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li v-for="type in cardTypes" :key="type">
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  @click.prevent="fetchCards(type)"
+                >
+                  {{ type }}
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-container" id="card-container">
+            <div v-for="card in filteredCards" :key="card.id" class="card">
+              <img :src="card.card_images[0].image_url" :alt="card.name" />
+              <h3>{{ card.name }}</h3>
+              <p>{{ card.type }}</p>
+            </div>
+          </div>
         </div>
       </main>
     </div>
@@ -10,30 +38,30 @@
   
   <script>
   export default {
-    mounted() {
-      this.fetchCards();
+    data() {
+      return {
+        cards: [],
+        filteredCards: [],
+        cardTypes: [
+          "Spell Card",
+          "Trap Card",
+          "Effect Monster",
+          "Normal Monster",
+          // Add more types as needed
+        ],
+      };
     },
     methods: {
-      fetchCards() {
-        fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0')
+      fetchCards(type) {
+        fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php')
           .then(response => response.json())
-          .then(data => this.displayCards(data.data));
-      },
-      displayCards(cards) {
-        const container = document.getElementById('card-container');
-        cards.forEach(card => {
-          const cardElement = document.createElement('div');
-          cardElement.classList.add('card');
-          cardElement.innerHTML = `
-            <img src="${card.card_images[0].image_url}" alt="${card.name}">
-            <h3>${card.name}</h3>
-            <p>${card.type}</p>
-          `;
-          container.appendChild(cardElement);
-        });
+          .then(data => {
+            this.cards = data.data;
+            this.filteredCards = this.cards.filter(card => card.type === type);
+          });
       }
     }
-  }
+  };
   </script>
   
   <style lang="scss">
