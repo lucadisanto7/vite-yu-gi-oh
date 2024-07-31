@@ -9,7 +9,31 @@
   </template>
   
   <script>
-  
+  export default {
+    mounted() {
+      this.fetchCards();
+    },
+    methods: {
+      fetchCards() {
+        fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0')
+          .then(response => response.json())
+          .then(data => this.displayCards(data.data));
+      },
+      displayCards(cards) {
+        const container = document.getElementById('card-container');
+        cards.forEach(card => {
+          const cardElement = document.createElement('div');
+          cardElement.classList.add('card');
+          cardElement.innerHTML = `
+            <img src="${card.card_images[0].image_url}" alt="${card.name}">
+            <h3>${card.name}</h3>
+            <p>${card.type}</p>
+          `;
+          container.appendChild(cardElement);
+        });
+      }
+    }
+  }
   </script>
   
   <style lang="scss">
