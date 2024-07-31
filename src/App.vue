@@ -3,9 +3,11 @@ import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 import { cards } from './components/store.js'
 export default {
-  AppHeader,
-  AppMain,
-  cards,
+  components:{
+    AppHeader,
+    AppMain,
+    cards,
+  }  
 }
 </script>
 <template>
