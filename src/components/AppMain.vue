@@ -8,6 +8,6 @@ export default {
         
     </div>
 </template>
-<style>
+<style lang="scss">
     
 </style>
