@@ -4,7 +4,7 @@
         <div class="container">
           <div class="dropdown my-3">
             <button
-              class="btn btn-secondary dropdown-toggle"
+              class="btn button dropdown-toggle"
               type="button"
               id="dropdownMenuButton"
               data-bs-toggle="dropdown"
@@ -85,5 +85,10 @@
   }
   .card h3 {
     font-size: 1.2em;
+  }
+  .button{
+    background-color: white;
+    margin: 30px;
+    margin-left: 110px;
   }
   </style>
